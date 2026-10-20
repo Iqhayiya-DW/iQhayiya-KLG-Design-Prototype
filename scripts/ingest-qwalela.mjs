@@ -46,7 +46,6 @@ export function ingestQwalela() {
   const images = fs
     .readdirSync(HOMESTEAD_DIR)
     .filter((name) => WEB.has(path.extname(name).toLowerCase()))
-    .filter((name) => !/^image\d+/i.test(name))
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }))
     .map((name) => `images/Qwalela Homestead/${name}`);
 
