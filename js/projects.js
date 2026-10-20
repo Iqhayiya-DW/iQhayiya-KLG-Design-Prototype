@@ -21,8 +21,8 @@ export const projects = [
     ],
     related: ["anglican-union", "matatiele-social-development"],
     paragraphs: [
-      "Project name: uMzimkhulu Memorial Hall. Location: uMzimkhulu.",
-      "Completion date: 17 November 2021.",
+      "A civic hall for gathering, ceremony and daily public life in uMzimkhulu. The work is recorded from plan and section through to the street elevation and construction on site.",
+      "Completed 17 November 2021.",
     ],
   },
   {
@@ -52,7 +52,10 @@ export const projects = [
       "images/idw/house-qwalela-interior-1.jpg",
     ],
     related: ["matatiele-social-development", "mbizana"],
-    paragraphs: ["Project name: House Qwalela. Location: Flagstaff, Eastern Cape."],
+    paragraphs: [
+      "House Qwalela sits on a homestead site in Flagstaff, Eastern Cape. The house is arranged as rooms around court and colonnade, so living is both sheltered and open to the land.",
+      "Drawings set the building on its slope. Brickwork, scaffold and joinery take those lines into construction. Later photographs are of the homestead as it is lived in.",
+    ],
   },
   {
     id: "matatiele-social-development",
@@ -78,7 +81,7 @@ export const projects = [
     ],
     related: ["umzimkhulu-memorial-hall", "anglican-union"],
     paragraphs: [
-      "Project name: Matatiele Social Development. Location: Matatiele.",
+      "Offices for Social Development in Matatiele, organised around waiting, interview and a courtyard so daylight reaches the middle of the plan.",
     ],
   },
   {
@@ -105,8 +108,7 @@ export const projects = [
     ],
     related: ["umzimkhulu-memorial-hall", "house-qwalela"],
     paragraphs: [
-      "Project name: Anglican Mothers’ Union Centre. Client: Diocese of Umzimvubu. Location: Kokstad.",
-      "The work was undertaken pro bono.",
+      "A parish centre in Kokstad for the Anglican Mothers’ Union, Diocese of Umzimvubu. Plan and section establish a compact hall. The work was undertaken pro bono.",
     ],
   },
   {
@@ -123,7 +125,9 @@ export const projects = [
     gallerySource: "images/Mbizana/gallery.json",
     gallery: [],
     related: ["umzimkhulu-memorial-hall", "idutywa-town-hall"],
-    paragraphs: ["Project name: Mbizana. Location: Mbizana."],
+    paragraphs: [
+      "A civic building in Mbizana: drum, hall and court in brick and weathered steel. A short film of the site sits in the gallery with the stills.",
+    ],
   },
   {
     id: "idutywa-town-hall",
@@ -139,7 +143,9 @@ export const projects = [
     gallerySource: "images/Idutywa Town Hall/gallery.json",
     gallery: [],
     related: ["mbizana", "umzimkhulu-memorial-hall"],
-    paragraphs: ["Project name: Idutywa Town Hall. Location: Idutywa."],
+    paragraphs: [
+      "A town hall for Idutywa, read from the air and from the ground as it is built. The site film is included in the gallery.",
+    ],
   },
 ];
 
@@ -150,6 +156,15 @@ export function getProject(id) {
 export function getRelated(project) {
   if (!project) return [];
   return project.related.map(getProject).filter(Boolean);
+}
+
+export function getNeighbors(project) {
+  const index = projects.findIndex((item) => item.id === project?.id);
+  if (index < 0) return { prev: null, next: null };
+  return {
+    prev: index > 0 ? projects[index - 1] : null,
+    next: index < projects.length - 1 ? projects[index + 1] : null,
+  };
 }
 
 export function featuredProjects() {

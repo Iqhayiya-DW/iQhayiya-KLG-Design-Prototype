@@ -16,4 +16,4 @@ Then open http://127.0.0.1:43123/
 
 ## Qwalela Homestead photos
 
-Drop photos (HEIC is fine) and the Word description into `images/Qwalela Homestead/`. They will be converted to JPG for the House Qwalela project page, six pictures at a time.
+Drop photos (HEIC is fine) and the Word description into `images/Qwalela Homestead/`. They are converted to JPG for the House Qwalela project page.

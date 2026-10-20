@@ -1,5 +1,5 @@
 import { mountChrome, escapeHtml } from "./nav.js?v=klg5";
-import { getProject } from "./projects.js?v=klg12";
+import { getProject, getNeighbors } from "./projects.js?v=klg14";
 
 mountChrome("work");
 
@@ -54,21 +54,34 @@ function mediaList(project, gallery) {
   return slides;
 }
 
+function neighborLink(kind, neighbor) {
+  if (!neighbor) return `<span></span>`;
+  const href = `project.html?id=${encodeURIComponent(neighbor.id)}`;
+  const caretLeft = `<svg viewBox="0 0 9 16" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="1.15" points="7.3,14.7 2.5,8 7.3,1.2"/></svg>`;
+  const caretRight = `<svg viewBox="0 0 9 16" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="1.15" points="1.6,1.2 6.5,7.9 1.6,14.7"/></svg>`;
+  if (kind === "prev") {
+    return `<a class="project-nextprev-link" href="${href}">
+      <span class="project-nextprev-caret">${caretLeft}</span>
+      <span>${escapeHtml(neighbor.title)}</span>
+    </a>`;
+  }
+  return `<a class="project-nextprev-link project-nextprev-link--next" href="${href}">
+      <span>${escapeHtml(neighbor.title)}</span>
+      <span class="project-nextprev-caret">${caretRight}</span>
+    </a>`;
+}
+
 function renderProject(project, gallery) {
   const slides = mediaList(project, gallery);
-  const parts = [
+  const { prev, next } = getNeighbors(project);
+  const facts = [
+    project.location ? `LOCATION: ${project.location}` : "",
     project.completed || project.year
-      ? ["Date of completion", project.completed || project.year]
-      : null,
-    project.location ? ["Location", project.location] : null,
-    project.client ? ["Client", project.client] : null,
+      ? `DATE OF COMPLETION: ${project.completed || project.year}`
+      : "",
+    project.client ? `CLIENT: ${project.client}` : "",
+    project.credit ? `PHOTOGRAPHY / IMAGE CREDIT: ${project.credit}` : "",
   ].filter(Boolean);
-  const detailsHtml = parts
-    .map(
-      ([label, value], index) =>
-        `${index ? '<span class="meta-sep">|</span>' : ""}<span class="meta-label">${escapeHtml(label)}:</span> <span class="meta-value">${escapeHtml(value)}</span>`
-    )
-    .join("");
 
   const story = (project.paragraphs || []).filter(Boolean);
   const storyHtml = story.length
@@ -80,89 +93,115 @@ function renderProject(project, gallery) {
   const slidesHtml = slides
     .map((slide, index) => {
       if (slide.type === "video") {
-        return `<video data-slide="${index}" controls playsinline preload="metadata" src="${encodeURI(slide.src)}" aria-label="Video of ${escapeHtml(project.title)}"></video>`;
+        return `<figure class="reel-item" data-index="${index}">
+          <video controls playsinline preload="metadata" src="${encodeURI(slide.src)}" aria-label="Video of ${escapeHtml(project.title)}"></video>
+        </figure>`;
       }
-      const map = slide.src.includes("location-map") ? " is-map" : "";
-      return `<img data-slide="${index}" class="${map.trim()}" src="${encodeURI(slide.src)}" alt="${escapeHtml(project.title)}" onerror="this.remove()">`;
+      return `<figure class="reel-item" data-index="${index}">
+        <img src="${encodeURI(slide.src)}" alt="${escapeHtml(project.title)}" onerror="this.closest('figure').remove()">
+      </figure>`;
     })
     .join("");
 
   root.innerHTML = `
-    <section class="project-stage" data-project-carousel>
+    <section class="project-head">
+      <h1>${escapeHtml(project.title)}</h1>
+      ${facts.length ? `<p class="project-facts">${facts.map(escapeHtml).join("<br>")}</p>` : ""}
+    </section>
+
+    <section class="project-reel" data-reel>
       ${
         slides.length > 1
-          ? `<button class="gallery-arrow" type="button" data-prev aria-label="Previous photo">‹</button>`
-          : `<span></span>`
+          ? `<button class="reel-arrow reel-arrow--prev" type="button" data-prev aria-label="Previous photo">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.2" d="M15 5L8 12l7 7"/></svg>
+            </button>`
+          : ""
       }
-      <div class="project-frame">
-        <div class="project-slides">${slidesHtml}</div>
-        ${
-          slides.length
-            ? `<p class="project-counter" data-counter>1 / ${slides.length}</p>`
-            : ""
-        }
+      <div class="reel-viewport">
+        <div class="reel-track" data-track>${slidesHtml}</div>
       </div>
       ${
         slides.length > 1
-          ? `<button class="gallery-arrow" type="button" data-next aria-label="Next photo">›</button>`
-          : `<span></span>`
+          ? `<button class="reel-arrow reel-arrow--next" type="button" data-next aria-label="Next photo">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.2" d="M9 5l7 7-7 7"/></svg>
+            </button>`
+          : ""
       }
     </section>
 
     <section class="project-intro">
-      <h1>${escapeHtml(project.title)}</h1>
-      ${detailsHtml ? `<p class="project-copy">${detailsHtml}</p>` : ""}
       <div class="project-story">${storyHtml}</div>
     </section>
 
-    <section class="more-projects">
-      <a class="more-projects-btn" href="work.html">More Projects</a>
-    </section>
+    <nav class="project-nextprev" aria-label="Adjacent projects">
+      ${neighborLink("prev", prev)}
+      ${neighborLink("next", next)}
+    </nav>
   `;
 
-  bindCarousel(root);
+  bindReel(root);
 }
 
-function bindCarousel(root) {
-  const stage = root.querySelector("[data-project-carousel]");
-  if (!stage) return;
-  const items = [...stage.querySelectorAll("[data-slide]")];
+function bindReel(root) {
+  const reel = root.querySelector("[data-reel]");
+  const track = root.querySelector("[data-track]");
+  const viewport = reel?.querySelector(".reel-viewport");
+  if (!reel || !track || !viewport) return;
+  const items = [...track.querySelectorAll(".reel-item")];
   if (!items.length) return;
-  const counter = stage.querySelector("[data-counter]");
   let index = 0;
 
   const pauseVideos = () => {
-    stage.querySelectorAll("video").forEach((video) => {
-      video.pause();
-    });
+    track.querySelectorAll("video").forEach((video) => video.pause());
+  };
+
+  const center = () => {
+    const item = items[index];
+    if (!item) return;
+    const shift = viewport.clientWidth / 2 - (item.offsetLeft + item.offsetWidth / 2);
+    track.style.transform = `translateX(${shift}px)`;
+    items.forEach((el, i) => el.classList.toggle("is-active", i === index));
   };
 
   const show = (nextIndex) => {
     index = (nextIndex + items.length) % items.length;
-    items.forEach((item, itemIndex) => {
-      item.classList.toggle("is-active", itemIndex === index);
-    });
     pauseVideos();
-    if (counter) counter.textContent = `${index + 1} / ${items.length}`;
+    center();
   };
 
-  stage.querySelector("[data-prev]")?.addEventListener("click", () => show(index - 1));
-  stage.querySelector("[data-next]")?.addEventListener("click", () => show(index + 1));
+  reel.querySelector("[data-prev]")?.addEventListener("click", () => show(index - 1));
+  reel.querySelector("[data-next]")?.addEventListener("click", () => show(index + 1));
+  items.forEach((item, i) => {
+    item.addEventListener("click", () => {
+      if (i !== index) show(i);
+    });
+  });
   document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft") show(index - 1);
     if (event.key === "ArrowRight") show(index + 1);
   });
 
   let touchX = null;
-  stage.addEventListener("touchstart", (event) => {
+  viewport.addEventListener("touchstart", (event) => {
     touchX = event.changedTouches[0]?.clientX ?? null;
   }, { passive: true });
-  stage.addEventListener("touchend", (event) => {
+  viewport.addEventListener("touchend", (event) => {
     if (touchX == null) return;
     const dx = (event.changedTouches[0]?.clientX ?? touchX) - touchX;
     if (Math.abs(dx) > 40) show(index + (dx < 0 ? 1 : -1));
     touchX = null;
   }, { passive: true });
 
+  const wait = items.map((item) => {
+    const media = item.querySelector("img, video");
+    if (!media || media.tagName === "VIDEO") return Promise.resolve();
+    if (media.complete) return Promise.resolve();
+    return new Promise((resolve) => {
+      media.addEventListener("load", resolve, { once: true });
+      media.addEventListener("error", resolve, { once: true });
+    });
+  });
+  Promise.all(wait).then(() => show(0));
+  window.addEventListener("resize", center);
   show(0);
 }
