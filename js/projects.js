@@ -27,14 +27,14 @@ export const projects = [
   },
   {
     id: "house-qwalela",
-    title: "House Qwalela",
+    title: "Qwalela Ancestral Homestead",
     category: "Residential",
     year: "",
     completed: "",
-    location: "Sipaqeni, Flagstaff, Eastern Cape",
+    location: "Sipaqeni, Flagstaff, Eastern Cape, South Africa",
     client: "",
     excerpt:
-      "A revitalised homestead at Sipaqeni, near Flagstaff, on land granted under communal trust in the late 1970s.",
+      "A sensitive revitalisation of a rural family settlement in Sipaqeni, Flagstaff, rooted in amaMpondo spatial traditions.",
     hero: "images/idw/house-qwalela-site.jpg",
     gallerySource: "images/Qwalela Homestead/gallery.json",
     gallery: [
@@ -54,9 +54,13 @@ export const projects = [
     ],
     related: ["matatiele-social-development", "mbizana"],
     paragraphs: [
-      "In the late 1970s, the clients’ parents, Mr and Mrs Qwalela, were granted a plot of land by the local chief, under communal trust. Over the following decades, they built a home and raised four children. Incrementally, additional structures were added, reflecting the growth of the family. By 2017, recognizing the degradation of the homestead and the need for expanded accommodation, the surviving three children resolved to upgrade the site. With the arrival of grandchildren and a commitment to honoring the original inhabitants, one of the children, now a practicing architect, was entrusted to lead the design and execution of the revitalized homestead.",
-      { heading: "Context: Site & Surroundings" },
-      "The project is located in the former Transkei region, in the small rural settlement of Sipaqeni, governed by the Sipaqeni Administrative Authority. Approximately 2 kilometres from Flagstaff and accessible via the R61, the area is defined by a rural vernacular: a landscape characterised through subsistence agriculture and natural landscape. Gravel roads provide access, and while the region benefits from electricity, running water is not yet available, but there are plans to facilitate this service. The site layout follows a common pattern of dispersed structures, forming a collective homestead around a central open space. This arrangement contrasts with the urban typology of a singular structure and outbuildings, instead emphasizing functional, relational, and spatial layering between multiple buildings.",
+      { heading: "Architecture, Memory and Cultural Continuity" },
+      "The Qwalela Ancestral Homestead is a sensitive revitalisation of a rural family settlement established in the late 1970s in the former Transkei. Over several decades, the homestead evolved incrementally as the family grew, with additional structures reflecting changing domestic needs. In 2017, the surviving children initiated its transformation, seeking to accommodate future generations while honouring the legacy of its original inhabitants.",
+      "Rooted in the spatial traditions of the amaMpondo, the design retains the arrangement of dispersed buildings around the ibala, the central courtyard that forms the heart of everyday homestead life. The indlu enkulu, the principal family house, remains the symbolic and social anchor, accommodating family deliberations, gatherings and the reception of important visitors. Complementing it are the living quarters of the descendants and the umsamo, a sacred space associated with ancestral reverence and family rituals.",
+      "The site's gentle northward slope is articulated into two terraces, establishing a deliberate spatial hierarchy. The upper terrace accommodates the domestic structures and ibala, while the lower inkundla serves as a communal ceremonial ground for family gatherings, traditional rituals and significant cultural occasions. This distinction reinforces the relationship between domestic life, collective identity and ancestral practices.",
+      "The architectural language draws from the rural vernacular through straw-reinforced earth blocks, reclaimed materials, locally sourced stone, face brick and timber screens. These materials establish a strong relationship with the landscape while encouraging local participation and environmentally conscious construction.",
+      "Passive climatic principles inform building orientation, natural ventilation and the articulation of indoor and outdoor spaces. Pitched roofs facilitate rainwater harvesting, while indigenous and productive landscaping, shaded thresholds and outdoor rooms extend domestic life into the surrounding landscape.",
+      "More than a physical renewal, the project explores architecture as a vessel for memory, identity and belonging. It seeks to reconcile inherited amaMpondo cultural traditions with contemporary living, creating a homestead where ancestral presence remains integral to everyday life and future generations can continue to shape its evolving story.",
     ],
   },
   {
