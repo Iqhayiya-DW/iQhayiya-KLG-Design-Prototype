@@ -1,5 +1,5 @@
 import { mountChrome, escapeHtml } from "./nav.js?v=klg5";
-import { getProject } from "./projects.js?v=klg10";
+import { getProject } from "./projects.js?v=klg11";
 
 mountChrome("work");
 
@@ -78,7 +78,7 @@ function renderProject(project, gallery) {
           .map(
             (src) => `
           <figure class="gallery-item${src.includes("location-map") ? " gallery-item-map" : ""}">
-            <img src="${encodeURI(src)}" alt="${escapeHtml(project.title)}">
+            <img src="${encodeURI(src)}" alt="${escapeHtml(project.title)}" onerror="this.closest('figure').remove()">
           </figure>`
           )
           .join("")}
