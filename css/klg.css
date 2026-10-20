@@ -498,18 +498,71 @@ h3 { font-size: 1.02rem; margin: 0 0 0.4rem; }
   height: min(74vh, 760px);
   object-fit: cover;
 }
-.project-video {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 clamp(1.1rem, 3vw, 2.6rem) 0.4rem;
+.project-stage {
+  display: grid;
+  grid-template-columns: auto minmax(0, 64rem) auto;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1.2rem;
+  padding: 1.1rem clamp(0.8rem, 3vw, 2.4rem) 0.2rem;
 }
-.project-video video {
-  display: block;
+.project-frame {
+  position: relative;
   width: 100%;
-  max-height: min(70vh, 720px);
-  background: #111;
-  border-radius: 0.28rem;
+  max-width: 64rem;
+  justify-self: center;
 }
+.project-slides {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-height: 68vh;
+  overflow: hidden;
+  background: #ece7de;
+}
+.project-slides img,
+.project-slides video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s var(--ease);
+}
+.project-slides video {
+  background: #111;
+  object-fit: contain;
+}
+.project-slides img.is-map {
+  object-fit: contain;
+  background: #fff;
+  padding: 0.6rem;
+}
+.project-slides img.is-active,
+.project-slides video.is-active {
+  opacity: 1;
+  z-index: 1;
+  pointer-events: auto;
+}
+.project-counter {
+  margin: 0.7rem 0 0;
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.project-story {
+  max-width: 40rem;
+  margin: 1.6rem auto 0;
+  text-align: left;
+  color: #444;
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+.project-story p + p { margin-top: 1.1rem; }
 .project-intro,
 .gallery,
 .more-projects,
@@ -761,7 +814,9 @@ h3 { font-size: 1.02rem; margin: 0 0 0.4rem; }
   .site-nav.is-open { display: flex; }
   .klg-grid { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .home-stage { column-gap: 0.85rem; padding: 0.6rem 0.5rem 1rem; }
+  .home-stage,
+  .project-stage { column-gap: 0.55rem; padding: 0.6rem 0.4rem 1rem; }
+  .project-slides { max-height: 52vh; }
   .home-slides { max-height: 52vh; }
   .wordmark-name { font-size: 1.05rem; }
   .wordmark-sub { display: none; }
