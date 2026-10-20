@@ -7,6 +7,7 @@
   --accent: #9a6844;
   --header-h: 4.7rem;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --sans: "Arial Nova Light", "Arial Nova", Arial, Helvetica, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -15,8 +16,8 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 400;
+  font-family: var(--sans);
+  font-weight: 300;
   font-size: 12px;
   line-height: 1.65;
   letter-spacing: 0;
@@ -84,9 +85,9 @@ button { cursor: pointer; }
   gap: 0.85rem;
 }
 .wordmark-name {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--sans);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 300;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   line-height: 1;
@@ -254,7 +255,7 @@ body:has(.home-stage) .site-footer { display: none; }
 }
 .home-caption strong {
   display: block;
-  font-weight: 500;
+  font-weight: 300;
   color: var(--ink);
 }
 .home-caption span {
@@ -290,8 +291,8 @@ body:has(.home-stage) .site-footer { display: none; }
   color: var(--muted);
 }
 h1, h2, h3 {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
+  font-family: var(--sans);
+  font-weight: 300;
   letter-spacing: 0;
   line-height: 1.2;
 }
@@ -343,9 +344,9 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
 }
 .klg-tile h3 {
   margin: 0.75rem 0 0.15rem;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--sans);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 300;
   letter-spacing: 0;
 }
 .klg-tile p {
@@ -393,9 +394,9 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
 }
 .about-block h2,
 .awards-block h2 {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--sans);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 300;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
