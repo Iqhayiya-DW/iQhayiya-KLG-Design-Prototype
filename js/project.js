@@ -1,5 +1,5 @@
 import { mountChrome, escapeHtml } from "./nav.js?v=klg5";
-import { getProject } from "./projects.js?v=klg12";
+import { getProject, getNeighbors } from "./projects.js?v=klg13";
 
 mountChrome("work");
 
@@ -54,8 +54,31 @@ function mediaList(project, gallery) {
   return slides;
 }
 
+function neighborLink(kind, neighbor) {
+  if (!neighbor) return "";
+  const href = `project.html?id=${encodeURIComponent(neighbor.id)}`;
+  const caret =
+    kind === "prev"
+      ? `<svg viewBox="0 0 9 16" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="1.2" points="7.3,14.7 2.5,8 7.3,1.2"/></svg>`
+      : `<svg viewBox="0 0 9 16" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="1.2" points="1.6,1.2 6.5,7.9 1.6,14.7"/></svg>`;
+  const label = kind === "prev" ? "Previous" : "Next";
+  const copy = `
+      <div class="item-pagination-copy">
+        <p class="item-pagination-label">${label}</p>
+        <h2 class="item-pagination-title">${escapeHtml(neighbor.title)}</h2>
+      </div>`;
+  return kind === "prev"
+    ? `<a class="item-pagination-link item-pagination-link--prev" href="${href}">
+        <span class="item-pagination-icon">${caret}</span>${copy}
+      </a>`
+    : `<a class="item-pagination-link item-pagination-link--next" href="${href}">
+        ${copy}<span class="item-pagination-icon">${caret}</span>
+      </a>`;
+}
+
 function renderProject(project, gallery) {
   const slides = mediaList(project, gallery);
+  const { prev, next } = getNeighbors(project);
   const parts = [
     project.completed || project.year
       ? ["Date of completion", project.completed || project.year]
@@ -88,6 +111,11 @@ function renderProject(project, gallery) {
     .join("");
 
   root.innerHTML = `
+    <section class="project-head">
+      <h1>${escapeHtml(project.title)}</h1>
+      ${detailsHtml ? `<p class="project-copy">${detailsHtml}</p>` : ""}
+    </section>
+
     <section class="project-stage" data-project-carousel>
       ${
         slides.length > 1
@@ -96,11 +124,6 @@ function renderProject(project, gallery) {
       }
       <div class="project-frame">
         <div class="project-slides">${slidesHtml}</div>
-        ${
-          slides.length
-            ? `<p class="project-counter" data-counter>1 / ${slides.length}</p>`
-            : ""
-        }
       </div>
       ${
         slides.length > 1
@@ -110,14 +133,13 @@ function renderProject(project, gallery) {
     </section>
 
     <section class="project-intro">
-      <h1>${escapeHtml(project.title)}</h1>
-      ${detailsHtml ? `<p class="project-copy">${detailsHtml}</p>` : ""}
       <div class="project-story">${storyHtml}</div>
     </section>
 
-    <section class="more-projects">
-      <a class="more-projects-btn" href="work.html">More Projects</a>
-    </section>
+    <nav class="item-pagination" aria-label="Adjacent projects">
+      ${neighborLink("prev", prev)}
+      ${neighborLink("next", next)}
+    </nav>
   `;
 
   bindCarousel(root);
@@ -128,7 +150,6 @@ function bindCarousel(root) {
   if (!stage) return;
   const items = [...stage.querySelectorAll("[data-slide]")];
   if (!items.length) return;
-  const counter = stage.querySelector("[data-counter]");
   let index = 0;
 
   const pauseVideos = () => {
@@ -143,7 +164,6 @@ function bindCarousel(root) {
       item.classList.toggle("is-active", itemIndex === index);
     });
     pauseVideos();
-    if (counter) counter.textContent = `${index + 1} / ${items.length}`;
   };
 
   stage.querySelector("[data-prev]")?.addEventListener("click", () => show(index - 1));
