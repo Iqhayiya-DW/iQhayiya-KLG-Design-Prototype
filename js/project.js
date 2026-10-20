@@ -1,5 +1,5 @@
 import { mountChrome, escapeHtml } from "./nav.js?v=klg5";
-import { getProject } from "./projects.js?v=klg6";
+import { getProject } from "./projects.js?v=klg7";
 
 mountChrome("work");
 
@@ -30,9 +30,12 @@ async function loadGallery(project) {
     const res = await fetch(project.gallerySource);
     if (!res.ok) return fallback;
     const data = await res.json();
-    const images = (data.images || []).filter(Boolean);
-    if (data.hero) project.hero = data.hero;
-    return images.length ? images : fallback;
+    const extra = (data.images || []).filter(Boolean);
+    const merged = [...fallback];
+    extra.forEach((src) => {
+      if (!merged.includes(src)) merged.push(src);
+    });
+    return merged.length ? merged : fallback;
   } catch {
     return fallback;
   }
