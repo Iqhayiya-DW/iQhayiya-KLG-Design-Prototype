@@ -2,7 +2,7 @@
 
 This is the **chosen** site: iQhayiya content in the KLG Architects manner (light ground, category nav, centred project gallery).
 
-Live: https://shichabonkuna22-star.github.io/iQhayiya-KLG-Design-Prototype/
+Live: https://shichabonkuna22-star.github.io/iQhayiya-Design-Prototype/
 
 Navbar: Home · About · Residential · Community · News · Join · Contact
 
