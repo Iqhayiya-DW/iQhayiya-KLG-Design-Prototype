@@ -1,8 +1,9 @@
 import { mountChrome, escapeHtml } from "./nav.js?v=klg5";
-import { getProject } from "./projects.js?v=klg3";
+import { getProject } from "./projects.js?v=klg6";
 
 mountChrome("work");
 
+const PAGE_SIZE = 6;
 const params = new URLSearchParams(location.search);
 const project = getProject(params.get("id"));
 const root = document.getElementById("project-root");
@@ -19,7 +20,25 @@ if (!project || !root) {
   }
 } else {
   document.title = `${project.title} — iQhayiya Design Workshop`;
+  loadGallery(project).then((gallery) => renderProject(project, gallery));
+}
 
+async function loadGallery(project) {
+  const fallback = (project.gallery || []).filter(Boolean);
+  if (!project.gallerySource) return fallback;
+  try {
+    const res = await fetch(project.gallerySource);
+    if (!res.ok) return fallback;
+    const data = await res.json();
+    const images = (data.images || []).filter(Boolean);
+    if (data.hero) project.hero = data.hero;
+    return images.length ? images : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function renderProject(project, gallery) {
   const parts = [
     ["Project name", project.title],
     project.location ? ["Location", project.location] : null,
@@ -34,25 +53,40 @@ if (!project || !root) {
     )
     .join("");
 
-  const gallery = (project.gallery || []).filter(Boolean);
+  const totalPages = Math.max(1, Math.ceil(gallery.length / PAGE_SIZE));
+  let page = Number.parseInt(params.get("page") || "1", 10);
+  if (!Number.isFinite(page) || page < 1) page = 1;
+  if (page > totalPages) page = totalPages;
+  const start = (page - 1) * PAGE_SIZE;
+  const slice = gallery.slice(start, start + PAGE_SIZE);
+
   const galleryHtml = gallery.length
     ? `<section class="gallery">
       <div class="gallery-grid">
-        ${gallery
+        ${slice
           .map(
             (src) => `
           <figure class="gallery-item${src.includes("location-map") ? " gallery-item-map" : ""}">
-            <img src="${src}" alt="${escapeHtml(project.title)}">
+            <img src="${encodeURI(src)}" alt="${escapeHtml(project.title)}">
           </figure>`
           )
           .join("")}
       </div>
+      ${
+        totalPages > 1
+          ? `<nav class="gallery-pager" aria-label="Gallery pages">
+          ${page > 1 ? `<a href="${pageHref(page - 1)}">Previous</a>` : `<span>Previous</span>`}
+          <p>Page ${page} of ${totalPages}</p>
+          ${page < totalPages ? `<a href="${pageHref(page + 1)}">Next</a>` : `<span>Next</span>`}
+        </nav>`
+          : ""
+      }
     </section>`
     : "";
 
   root.innerHTML = `
     <section class="project-hero">
-      <img src="${project.hero}" alt="${escapeHtml(project.title)}">
+      <img src="${encodeURI(project.hero)}" alt="${escapeHtml(project.title)}">
     </section>
 
     <section class="project-intro">
@@ -69,6 +103,12 @@ if (!project || !root) {
   `;
 
   bindLightbox(root, project.title);
+}
+
+function pageHref(page) {
+  const next = new URLSearchParams(location.search);
+  next.set("page", String(page));
+  return `${location.pathname}?${next.toString()}`;
 }
 
 function bindLightbox(root, title) {
@@ -106,4 +146,3 @@ function bindLightbox(root, title) {
     if (event.key === "Escape" && !box.hidden) close();
   });
 }
-

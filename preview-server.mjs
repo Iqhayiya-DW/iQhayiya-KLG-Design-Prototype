@@ -3,6 +3,7 @@ import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { ingestQwalela } from "./scripts/ingest-qwalela.mjs";
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PORT = 43123;
@@ -20,6 +21,7 @@ const MIME = {
   ".webp": "image/webp",
   ".gif": "image/gif",
   ".ico": "image/x-icon",
+  ".pdf": "application/pdf",
   ".woff2": "font/woff2",
 };
 
@@ -32,6 +34,16 @@ function safeFile(urlPath) {
 }
 
 const server = http.createServer((req, res) => {
+  if (req.method === "OPTIONS") {
+    res.writeHead(204, {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
+      "Access-Control-Allow-Headers": "*",
+    });
+    res.end();
+    return;
+  }
+
   const file = safeFile(req.url || "/");
   if (!file) {
     res.writeHead(403, { Connection: "close" });
@@ -49,28 +61,36 @@ const server = http.createServer((req, res) => {
       return;
     }
 
-    res.writeHead(200, {
+    const headers = {
       "Content-Type": MIME[path.extname(file).toLowerCase()] || "application/octet-stream",
       "Content-Length": st.size,
-      Connection: "close",
       "Cache-Control": "no-store",
-    });
+      "Access-Control-Allow-Origin": "*",
+    };
+    if (req.method === "HEAD") {
+      res.writeHead(200, headers);
+      res.end();
+      return;
+    }
+    res.writeHead(200, headers);
     const stream = fs.createReadStream(file);
     stream.on("error", () => {
-      if (!res.headersSent) res.writeHead(500, { Connection: "close" });
+      if (!res.headersSent) res.writeHead(500);
       res.end();
     });
     stream.pipe(res);
   });
 });
 
-server.keepAliveTimeout = 1;
-server.headersTimeout = 60_000;
+server.keepAliveTimeout = 65_000;
+server.headersTimeout = 66_000;
 server.requestTimeout = 0;
 server.timeout = 0;
 server.on("clientError", (_err, socket) => {
   if (socket.writable) socket.end("HTTP/1.1 400 Bad Request\r\nConnection: close\r\n\r\n");
 });
 server.listen(PORT, "0.0.0.0", () => {
+  ingestQwalela();
+  setInterval(ingestQwalela, 4000);
   console.log(`Serving on http://0.0.0.0:${PORT}/`);
 });

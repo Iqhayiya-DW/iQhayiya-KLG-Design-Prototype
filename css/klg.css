@@ -540,6 +540,19 @@ h3 { font-size: 1.02rem; margin: 0 0 0.4rem; }
 }
 .gallery-item:hover img { transform: scale(1.04); }
 .gallery-item-map img { object-fit: contain; padding: 0.6rem; background: #fff; }
+.gallery-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  margin-top: 1.4rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.gallery-pager a { color: var(--ink); }
+.gallery-pager span { opacity: 0.35; }
 .more-projects { text-align: center; padding-bottom: 4rem; }
 
 .join-pair {

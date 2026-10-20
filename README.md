@@ -1,9 +1,19 @@
-# iQhayiya Design Workshop — KLG-style prototype
+# iQhayiya Design Workshop
 
-Option 2 for the client: the same iQhayiya information, laid out in the manner of [KLG Architects](https://www.klg.co.za/) — white ground, Poppins, centred project gallery, category navigation.
+This is the **chosen** site: iQhayiya content in the KLG Architects manner (light ground, category nav, centred project gallery).
 
 Live: https://shichabonkuna22-star.github.io/iQhayiya-KLG-Design-Prototype/
 
-**About** is a separate page (`about.html`). **Contact** is studio details and the form only.
+Navbar: Home · About · Residential · Community · News · Join · Contact
 
-Option 1 (paper monograph) remains at [iQhayiya-Design-Prototype](https://github.com/shichabonkuna22-star/iQhayiya-Design-Prototype).
+## Local
+
+```bash
+node preview-server.mjs
+```
+
+Then open http://127.0.0.1:43123/
+
+## Qwalela Homestead photos
+
+Drop photos (HEIC is fine) and the Word description into `images/Qwalela Homestead/`. They will be converted to JPG for the House Qwalela project page, six pictures at a time.
