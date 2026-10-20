@@ -49,7 +49,17 @@ export function ingestQwalela() {
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }))
     .map((name) => `images/Qwalela Homestead/${name}`);
 
-  const payload = `${JSON.stringify({ hero: images[0] || "", images }, null, 2)}\n`;
+  let hero = images[0] || "";
+  try {
+    const prevData = JSON.parse(fs.readFileSync(MANIFEST, "utf8"));
+    if (prevData.hero && images.includes(prevData.hero)) hero = prevData.hero;
+  } catch {
+    /* first write */
+  }
+  if (images.includes("images/Qwalela Homestead/10.jpg")) {
+    hero = "images/Qwalela Homestead/10.jpg";
+  }
+  const payload = `${JSON.stringify({ hero, images }, null, 2)}\n`;
   const prev = fs.existsSync(MANIFEST) ? fs.readFileSync(MANIFEST, "utf8") : "";
   if (prev !== payload) fs.writeFileSync(MANIFEST, payload);
   return images;

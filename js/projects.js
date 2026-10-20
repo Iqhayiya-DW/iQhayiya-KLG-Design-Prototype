@@ -34,7 +34,7 @@ export const projects = [
     location: "Flagstaff, Eastern Cape",
     client: "",
     excerpt: "House Qwalela, homestead at Flagstaff, Eastern Cape.",
-    hero: "images/idw/house-qwalela-site.jpg",
+    hero: "images/Qwalela Homestead/10.jpg",
     gallerySource: "images/Qwalela Homestead/gallery.json",
     gallery: [
       "images/idw/house-qwalela-location-map.jpg",
