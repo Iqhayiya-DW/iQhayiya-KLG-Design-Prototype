@@ -3,7 +3,7 @@ import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { ingestQwalela } from "./scripts/ingest-qwalela.mjs";
+import { ingestQwalela, HOMESTEAD_DIR } from "./scripts/ingest-qwalela.mjs";
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PORT = 43123;
@@ -33,7 +33,57 @@ function safeFile(urlPath) {
   return resolved;
 }
 
+function send(res, code, body, type = "text/plain; charset=utf-8") {
+  const data = Buffer.from(body);
+  res.writeHead(code, {
+    "Content-Type": type,
+    "Content-Length": data.length,
+    "Access-Control-Allow-Origin": "*",
+    "Cache-Control": "no-store",
+  });
+  res.end(data);
+}
+
+async function handleHomesteadUpload(req, res) {
+  let Busboy;
+  try {
+    ({ default: Busboy } = await import("busboy"));
+  } catch {
+    send(res, 500, "Upload is not available (missing busboy).");
+    return;
+  }
+
+  fs.mkdirSync(HOMESTEAD_DIR, { recursive: true });
+  const saved = [];
+  const bb = Busboy({ headers: req.headers, limits: { fileSize: 80 * 1024 * 1024 } });
+
+  bb.on("file", (_name, file, info) => {
+    const filename = path.basename(info.filename || "photo.bin").replace(/[^\w.\- ()]/g, "_");
+    const dest = path.join(HOMESTEAD_DIR, filename);
+    saved.push(filename);
+    file.pipe(fs.createWriteStream(dest));
+  });
+
+  bb.on("error", (err) => send(res, 400, String(err.message || err)));
+  bb.on("finish", () => {
+    const images = ingestQwalela();
+    send(
+      res,
+      200,
+      `Saved ${saved.length} file(s): ${saved.join(", ") || "(none)"}\nWeb photos ready: ${images.length}`
+    );
+  });
+
+  req.pipe(bb);
+}
+
 const server = http.createServer((req, res) => {
+  const urlPath = (req.url || "/").split("?")[0];
+  if (req.method === "POST" && urlPath === "/qwalela-upload") {
+    handleHomesteadUpload(req, res);
+    return;
+  }
+
   if (req.method === "OPTIONS") {
     res.writeHead(204, {
       "Access-Control-Allow-Origin": "*",

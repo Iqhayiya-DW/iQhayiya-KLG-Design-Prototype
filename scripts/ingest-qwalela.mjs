@@ -9,6 +9,12 @@ const MANIFEST = path.join(HOMESTEAD_DIR, "gallery.json");
 const WEB = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif"]);
 const HEIC = new Set([".heic", ".heif"]);
 
+const SHRINK = path.join(ROOT, "scripts", "shrink-image.py");
+
+function shrinkJpeg(file) {
+  execFileSync("python3", [SHRINK, file, file, "1920"], { stdio: "pipe" });
+}
+
 function slugBase(name) {
   return name
     .replace(/\.[^.]+$/, "")
@@ -30,6 +36,7 @@ export function ingestQwalela() {
     }
     try {
       execFileSync("heif-convert", ["-q", "88", src, dest], { stdio: "pipe" });
+      shrinkJpeg(dest);
       console.log(`Converted ${name} → ${path.basename(dest)}`);
     } catch (err) {
       console.error(`Could not convert ${name}:`, err.stderr?.toString() || err.message);
