@@ -1,5 +1,5 @@
 import { mountChrome, escapeHtml } from "./nav.js?v=klg5";
-import { getProject, getNeighbors } from "./projects.js?v=klg16";
+import { getProject, getNeighbors } from "./projects.js?v=klg17";
 
 mountChrome("work");
 
@@ -76,10 +76,13 @@ function renderProject(project, gallery) {
   const { prev, next } = getNeighbors(project);
   const facts = [
     project.location ? `LOCATION: ${project.location}` : "",
+    project.client ? `CLIENT: ${project.client}` : "",
+    project.started ? `DATE: ${project.started}` : "",
     project.completed || project.year
       ? `DATE OF COMPLETION: ${project.completed || project.year}`
       : "",
-    project.client ? `CLIENT: ${project.client}` : "",
+    project.value ? `CONTRACT VALUE: ${project.value}` : "",
+    project.tags?.length ? `TAGS: ${project.tags.join(", ")}` : "",
     project.credit ? `PHOTOGRAPHY / IMAGE CREDIT: ${project.credit}` : "",
   ].filter(Boolean);
 
