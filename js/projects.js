@@ -119,6 +119,7 @@ export const projects = [
     client: "",
     excerpt: "Civic building in Mbizana.",
     hero: "images/Mbizana/16.jpg",
+    video: "images/Mbizana/video.mp4",
     gallerySource: "images/Mbizana/gallery.json",
     gallery: [],
     related: ["umzimkhulu-memorial-hall", "idutywa-town-hall"],
