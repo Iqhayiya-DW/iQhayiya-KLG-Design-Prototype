@@ -23,6 +23,8 @@ const MIME = {
   ".ico": "image/x-icon",
   ".pdf": "application/pdf",
   ".woff2": "font/woff2",
+  ".mp4": "video/mp4",
+  ".webm": "video/webm",
 };
 
 function safeFile(urlPath) {
@@ -111,9 +113,45 @@ const server = http.createServer((req, res) => {
       return;
     }
 
+    const type = MIME[path.extname(file).toLowerCase()] || "application/octet-stream";
+    const range = req.headers.range;
+    const match = typeof range === "string" ? range.match(/^bytes=(\d*)-(\d*)$/) : null;
+
+    if (match) {
+      const size = st.size;
+      let start = match[1] ? Number(match[1]) : 0;
+      let end = match[2] ? Number(match[2]) : size - 1;
+      if (Number.isNaN(start) || Number.isNaN(end) || start > end || start >= size) {
+        res.writeHead(416, {
+          "Content-Range": `bytes */${size}`,
+          "Access-Control-Allow-Origin": "*",
+        });
+        res.end();
+        return;
+      }
+      end = Math.min(end, size - 1);
+      const headers = {
+        "Content-Type": type,
+        "Content-Length": end - start + 1,
+        "Content-Range": `bytes ${start}-${end}/${size}`,
+        "Accept-Ranges": "bytes",
+        "Cache-Control": "no-store",
+        "Access-Control-Allow-Origin": "*",
+      };
+      if (req.method === "HEAD") {
+        res.writeHead(206, headers);
+        res.end();
+        return;
+      }
+      res.writeHead(206, headers);
+      fs.createReadStream(file, { start, end }).pipe(res);
+      return;
+    }
+
     const headers = {
-      "Content-Type": MIME[path.extname(file).toLowerCase()] || "application/octet-stream",
+      "Content-Type": type,
       "Content-Length": st.size,
+      "Accept-Ranges": "bytes",
       "Cache-Control": "no-store",
       "Access-Control-Allow-Origin": "*",
     };

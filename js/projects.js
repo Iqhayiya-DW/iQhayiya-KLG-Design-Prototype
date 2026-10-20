@@ -134,6 +134,7 @@ export const projects = [
     client: "",
     excerpt: "Town hall in Idutywa.",
     hero: "images/Idutywa Town Hall/11.jpg",
+    video: "images/Idutywa Town Hall/video.mp4",
     gallerySource: "images/Idutywa Town Hall/gallery.json",
     gallery: [],
     related: ["mbizana", "umzimkhulu-memorial-hall"],

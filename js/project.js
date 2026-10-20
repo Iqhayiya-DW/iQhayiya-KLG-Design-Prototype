@@ -1,5 +1,5 @@
 import { mountChrome, escapeHtml } from "./nav.js?v=klg5";
-import { getProject } from "./projects.js?v=klg8";
+import { getProject } from "./projects.js?v=klg9";
 
 mountChrome("work");
 
@@ -63,6 +63,14 @@ function renderProject(project, gallery) {
   const start = (page - 1) * PAGE_SIZE;
   const slice = gallery.slice(start, start + PAGE_SIZE);
 
+  const videoHtml = project.video
+    ? `<section class="project-video">
+      <video controls playsinline preload="metadata" poster="${encodeURI(project.hero)}" src="${encodeURI(project.video)}">
+        Video of ${escapeHtml(project.title)}.
+      </video>
+    </section>`
+    : "";
+
   const galleryHtml = gallery.length
     ? `<section class="gallery">
       <div class="gallery-grid">
@@ -97,6 +105,8 @@ function renderProject(project, gallery) {
       <p class="project-copy">${detailsHtml}</p>
       <p class="lede">${escapeHtml(project.excerpt)}</p>
     </section>
+
+    ${videoHtml}
 
     ${galleryHtml}
 

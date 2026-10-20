@@ -498,6 +498,18 @@ h3 { font-size: 1.02rem; margin: 0 0 0.4rem; }
   height: min(74vh, 760px);
   object-fit: cover;
 }
+.project-video {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 clamp(1.1rem, 3vw, 2.6rem) 0.4rem;
+}
+.project-video video {
+  display: block;
+  width: 100%;
+  max-height: min(70vh, 720px);
+  background: #111;
+  border-radius: 0.28rem;
+}
 .project-intro,
 .gallery,
 .more-projects,
