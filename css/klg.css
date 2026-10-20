@@ -503,9 +503,9 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   object-fit: cover;
 }
 .project-page {
-  max-width: 68rem;
+  max-width: 88rem;
   margin: 0 auto;
-  padding: 2rem 1.5rem 1rem;
+  padding: 2rem 1.6rem 1rem;
 }
 .project-head {
   max-width: 46rem;
@@ -542,7 +542,7 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   gap: 0.55rem;
   width: 100%;
   max-width: 52rem;
-  margin: 0 0 2rem;
+  margin: 0 auto 2.2rem;
 }
 .reel-viewport {
   overflow: hidden;
@@ -606,6 +606,12 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   font-size: 12px;
   line-height: 1.75;
 }
+.project-intro {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
 .project-story p + p { margin-top: 1.05rem; }
 .project-story-heading {
   margin: 1.6rem 0 0.7rem;
@@ -641,11 +647,6 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   flex-shrink: 0;
 }
 .project-nextprev-caret svg { width: 100%; height: auto; }
-.project-intro {
-  max-width: none;
-  margin: 0;
-  padding: 0;
-}
 .gallery,
 .more-projects,
 .article-page,
