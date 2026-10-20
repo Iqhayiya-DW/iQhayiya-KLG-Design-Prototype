@@ -1,5 +1,5 @@
 import { mountChrome, escapeHtml } from "./nav.js?v=klg5";
-import { getProject } from "./projects.js?v=klg7";
+import { getProject } from "./projects.js?v=klg8";
 
 mountChrome("work");
 
