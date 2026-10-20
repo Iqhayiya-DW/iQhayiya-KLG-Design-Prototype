@@ -503,12 +503,12 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   object-fit: cover;
 }
 .project-page {
-  max-width: 58rem;
+  max-width: 68rem;
   margin: 0 auto;
   padding: 2rem 1.5rem 1rem;
 }
 .project-head {
-  max-width: none;
+  max-width: 46rem;
   margin: 0;
   padding: 0 0 1.5rem;
   text-align: left;
@@ -537,14 +537,18 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   line-height: 1.85;
 }
 .project-reel {
-  position: relative;
-  width: 92%;
-  max-width: 50rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  max-width: 52rem;
   margin: 0 0 2rem;
 }
 .reel-viewport {
   overflow: hidden;
-  width: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 46rem;
   cursor: grab;
 }
 .reel-track {
@@ -579,23 +583,23 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   max-width: 50rem;
 }
 .reel-arrow {
-  position: absolute;
-  top: 50%;
-  z-index: 3;
-  transform: translateY(-50%);
-  width: 2.2rem;
+  position: static;
+  flex: 0 0 1.8rem;
+  width: 1.8rem;
   height: 2.2rem;
   padding: 0;
   border: 0;
   background: none;
   color: #111;
+  transform: none;
 }
 .reel-arrow svg { width: 1.1rem; height: 1.1rem; display: block; margin: 0 auto; }
-.reel-arrow--prev { left: 0.2rem; }
-.reel-arrow--next { right: 0.2rem; }
+.reel-arrow--prev { left: auto; }
+.reel-arrow--next { right: auto; }
 .reel-arrow:hover { color: #000; }
 .project-story {
   max-width: none;
+  width: 100%;
   margin: 0;
   text-align: left;
   color: #333;
