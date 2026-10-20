@@ -1,5 +1,5 @@
 import { mountChrome, escapeHtml } from "./nav.js?v=klg5";
-import { getProject, getNeighbors } from "./projects.js?v=klg14";
+import { getProject, getNeighbors } from "./projects.js?v=klg15";
 
 mountChrome("work");
 
@@ -85,10 +85,17 @@ function renderProject(project, gallery) {
 
   const story = (project.paragraphs || []).filter(Boolean);
   const storyHtml = story.length
-    ? story.map((p) => `<p>${escapeHtml(p)}</p>`).join("")
+    ? story
+        .map((p) => {
+          if (p && typeof p === "object" && p.heading) {
+            return `<h2 class="project-story-heading">${escapeHtml(p.heading)}</h2>`;
+          }
+          return `<p>${escapeHtml(p)}</p>`;
+        })
+        .join("")
     : project.excerpt
-      ? `<p>${escapeHtml(project.excerpt)}</p>`
-      : "";
+    ? `<p>${escapeHtml(project.excerpt)}</p>`
+    : "";
 
   const slidesHtml = slides
     .map((slide, index) => {

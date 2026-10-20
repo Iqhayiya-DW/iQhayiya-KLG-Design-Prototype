@@ -31,9 +31,10 @@ export const projects = [
     category: "Residential",
     year: "",
     completed: "",
-    location: "Flagstaff, Eastern Cape",
+    location: "Sipaqeni, Flagstaff, Eastern Cape",
     client: "",
-    excerpt: "House Qwalela, homestead at Flagstaff, Eastern Cape.",
+    excerpt:
+      "A revitalised homestead at Sipaqeni, near Flagstaff, on land granted under communal trust in the late 1970s.",
     hero: "images/idw/house-qwalela-site.jpg",
     gallerySource: "images/Qwalela Homestead/gallery.json",
     gallery: [
@@ -53,8 +54,9 @@ export const projects = [
     ],
     related: ["matatiele-social-development", "mbizana"],
     paragraphs: [
-      "House Qwalela sits on a homestead site in Flagstaff, Eastern Cape. The house is arranged as rooms around court and colonnade, so living is both sheltered and open to the land.",
-      "Drawings set the building on its slope. Brickwork, scaffold and joinery take those lines into construction. Later photographs are of the homestead as it is lived in.",
+      "In the late 1970s, the clients’ parents, Mr and Mrs Qwalela, were granted a plot of land by the local chief, under communal trust. Over the following decades, they built a home and raised four children. Incrementally, additional structures were added, reflecting the growth of the family. By 2017, recognizing the degradation of the homestead and the need for expanded accommodation, the surviving three children resolved to upgrade the site. With the arrival of grandchildren and a commitment to honoring the original inhabitants, one of the children, now a practicing architect, was entrusted to lead the design and execution of the revitalized homestead.",
+      { heading: "Context: Site & Surroundings" },
+      "The project is located in the former Transkei region, in the small rural settlement of Sipaqeni, governed by the Sipaqeni Administrative Authority. Approximately 2 kilometres from Flagstaff and accessible via the R61, the area is defined by a rural vernacular: a landscape characterised through subsistence agriculture and natural landscape. Gravel roads provide access, and while the region benefits from electricity, running water is not yet available, but there are plans to facilitate this service. The site layout follows a common pattern of dispersed structures, forming a collective homestead around a central open space. This arrangement contrasts with the urban typology of a singular structure and outbuildings, instead emphasizing functional, relational, and spatial layering between multiple buildings.",
     ],
   },
   {
