@@ -18,7 +18,7 @@ body {
   color: var(--ink);
   font-family: var(--sans);
   font-weight: 300;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.65;
   letter-spacing: 0;
   text-rendering: optimizeLegibility;
@@ -86,7 +86,7 @@ button { cursor: pointer; }
 }
 .wordmark-name {
   font-family: var(--sans);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 300;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -96,7 +96,7 @@ button { cursor: pointer; }
 .wordmark-sub {
   position: relative;
   padding-left: 0.9rem;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
@@ -128,7 +128,7 @@ button { cursor: pointer; }
   justify-content: flex-end;
 }
 .site-nav a {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0;
   color: #5c574e;
   padding: 0.2rem 0;
@@ -304,9 +304,9 @@ h1, h2, h3 {
   letter-spacing: 0;
   line-height: 1.2;
 }
-h1 { font-size: 12px; margin: 0 0 1.4rem; }
-h2 { font-size: 12px; margin: 0 0 0.8rem; }
-h3 { font-size: 12px; margin: 0 0 0.4rem; }
+h1 { font-size: 14px; margin: 0 0 1.4rem; }
+h2 { font-size: 14px; margin: 0 0 0.8rem; }
+h3 { font-size: 14px; margin: 0 0 0.4rem; }
 .lede { max-width: 40rem; color: #5f5a52; margin: 0 0 1.6rem; }
 
 .klg-grid {
@@ -324,12 +324,12 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
 #news-grid .klg-tile-media { aspect-ratio: 4 / 3; }
 #news-grid .klg-tile h3 {
   margin: 0 0 0.7rem;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.25;
 }
 #news-grid .klg-tile p {
   margin: 0.55rem 0 0;
-  font-size: 12px;
+  font-size: 14px;
 }
 .klg-tile {
   display: block;
@@ -352,13 +352,13 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
 .klg-tile h3 {
   margin: 0.75rem 0 0.15rem;
   font-family: var(--sans);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 300;
   letter-spacing: 0;
 }
 .klg-tile p {
   margin: 0;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
 }
 
@@ -402,7 +402,7 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
 .about-block h2,
 .awards-block h2 {
   font-family: var(--sans);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 300;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -508,7 +508,7 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   padding: 2rem 1.6rem 1rem;
 }
 .project-head {
-  max-width: 46rem;
+  max-width: 52rem;
   margin: 0;
   padding: 0 0 1.5rem;
   text-align: left;
@@ -520,7 +520,7 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
 }
 .project-kicker {
   margin: 0 0 1.35rem;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 300;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -529,7 +529,7 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
 .project-facts {
   margin: 0;
   max-width: none;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 300;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -541,14 +541,14 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   align-items: center;
   gap: 0.55rem;
   width: 100%;
-  max-width: 52rem;
+  max-width: 58rem;
   margin: 0 auto 2.2rem;
 }
 .reel-viewport {
   overflow: hidden;
   flex: 1 1 auto;
   min-width: 0;
-  max-width: 46rem;
+  max-width: 52rem;
   cursor: grab;
 }
 .reel-track {
@@ -571,7 +571,7 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   height: auto;
   width: auto;
   max-width: 100%;
-  max-height: min(42vh, 26rem);
+  max-height: min(52vh, 34rem);
   object-fit: contain;
   background: none;
   border: 0;
@@ -580,7 +580,7 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
 }
 .reel-item video {
   background: none;
-  max-width: 50rem;
+  max-width: 52rem;
 }
 .reel-arrow {
   position: static;
@@ -603,7 +603,7 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   margin: 0;
   text-align: left;
   color: #333;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.75;
 }
 .project-intro {
@@ -615,7 +615,7 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
 .project-story p + p { margin-top: 1.05rem; }
 .project-story-heading {
   margin: 1.6rem 0 0.7rem;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 300;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -663,7 +663,7 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   max-width: none;
   margin: 0;
 }
-.project-copy { text-align: center; color: #555; font-size: 12px; }
+.project-copy { text-align: center; color: #555; font-size: 14px; }
 .meta-label { letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.68rem; color: var(--muted); }
 .meta-value { font-style: italic; }
 .meta-sep { margin: 0 0.6rem; color: var(--hair); }
@@ -729,7 +729,7 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
 }
 .article-head h1 {
   margin: 0 0 0.7rem;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.2;
 }
 .article-hero-clip { display: none; }
@@ -806,7 +806,7 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   grid-template-columns: 1.4fr 1fr 1fr 1fr;
   gap: 1.6rem;
 }
-.footer-blurb, .site-footer p { color: #6d675e; font-size: 12px; }
+.footer-blurb, .site-footer p { color: #6d675e; font-size: 14px; }
 .footer-note {
   margin: 1.8rem 0 0;
   font-size: 0.66rem;
@@ -899,7 +899,7 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   .project-nextprev { flex-direction: column; align-items: flex-start; }
   .project-nextprev-link { font-size: 20px; }
   .project-nextprev-link--next { margin-left: 0; }
-  .wordmark-name { font-size: 12px; }
+  .wordmark-name { font-size: 14px; }
   .wordmark-sub { display: none; }
 }
 
