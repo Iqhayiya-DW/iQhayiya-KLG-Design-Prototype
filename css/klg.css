@@ -503,36 +503,46 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   object-fit: cover;
 }
 .project-head {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 2.4rem clamp(1.4rem, 8vw, 7rem) 2.2rem;
+  max-width: none;
+  margin: 0;
+  padding: 2.8rem clamp(2.4rem, 10vw, 8rem) 4.8rem;
 }
 .project-head h1 {
-  margin: 0 0 1.4rem;
+  margin: 0 0 1.15rem;
   font-size: 22px;
   font-weight: 300;
 }
-.project-facts {
-  margin: 0;
+.project-kicker {
+  margin: 0 0 1.6rem;
   font-size: 12px;
   font-weight: 300;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #6a655c;
-  line-height: 1.7;
+  color: var(--accent);
+}
+.project-facts {
+  margin: 0;
+  max-width: 42rem;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #4a4741;
+  line-height: 1.85;
 }
 .project-reel {
   position: relative;
-  margin: 0 0 2.2rem;
+  margin: 0 0 2.4rem;
 }
 .reel-viewport {
   overflow: hidden;
   width: 100%;
+  cursor: grab;
 }
 .reel-track {
   display: flex;
   align-items: stretch;
-  gap: 10px;
+  gap: 1.4rem;
   width: max-content;
   transition: transform 0.55s var(--ease);
   will-change: transform;
@@ -540,7 +550,7 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
 .reel-item {
   margin: 0;
   flex: 0 0 auto;
-  height: min(75vh, 760px);
+  height: min(68vh, 720px);
   cursor: pointer;
 }
 .reel-item img,
@@ -563,16 +573,16 @@ h3 { font-size: 12px; margin: 0 0 0.4rem; }
   top: 50%;
   z-index: 3;
   transform: translateY(-50%);
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 2.6rem;
+  height: 2.6rem;
   padding: 0;
   border: 0;
   background: none;
-  color: #333;
+  color: #111;
 }
-.reel-arrow svg { width: 1.35rem; height: 1.35rem; display: block; margin: 0 auto; }
-.reel-arrow--prev { left: clamp(0.4rem, 2vw, 1.6rem); }
-.reel-arrow--next { right: clamp(0.4rem, 2vw, 1.6rem); }
+.reel-arrow svg { width: 1.2rem; height: 1.2rem; display: block; margin: 0 auto; }
+.reel-arrow--prev { left: 0.85rem; }
+.reel-arrow--next { right: 0.85rem; }
 .reel-arrow:hover { color: #000; }
 .project-story {
   max-width: 54rem;

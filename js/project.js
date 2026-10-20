@@ -1,5 +1,5 @@
 import { mountChrome, escapeHtml } from "./nav.js?v=klg5";
-import { getProject, getNeighbors } from "./projects.js?v=klg17";
+import { getProject, getNeighbors } from "./projects.js?v=klg18";
 
 mountChrome("work");
 
@@ -74,6 +74,7 @@ function neighborLink(kind, neighbor) {
 function renderProject(project, gallery) {
   const slides = mediaList(project, gallery);
   const { prev, next } = getNeighbors(project);
+  const kicker = project.tags?.[0] || "";
   const facts = [
     project.location ? `LOCATION: ${project.location}` : "",
     project.client ? `CLIENT: ${project.client}` : "",
@@ -82,7 +83,6 @@ function renderProject(project, gallery) {
       ? `DATE OF COMPLETION: ${project.completed || project.year}`
       : "",
     project.value ? `CONTRACT VALUE: ${project.value}` : "",
-    project.tags?.length ? `TAGS: ${project.tags.join(", ")}` : "",
     project.credit ? `PHOTOGRAPHY / IMAGE CREDIT: ${project.credit}` : "",
   ].filter(Boolean);
 
@@ -116,6 +116,7 @@ function renderProject(project, gallery) {
   root.innerHTML = `
     <section class="project-head">
       <h1>${escapeHtml(project.title)}</h1>
+      ${kicker ? `<p class="project-kicker">${escapeHtml(kicker)}</p>` : ""}
       ${facts.length ? `<p class="project-facts">${facts.map(escapeHtml).join("<br>")}</p>` : ""}
     </section>
 
@@ -165,18 +166,18 @@ function bindReel(root) {
     track.querySelectorAll("video").forEach((video) => video.pause());
   };
 
-  const center = () => {
+  const align = () => {
     const item = items[index];
     if (!item) return;
-    const shift = viewport.clientWidth / 2 - (item.offsetLeft + item.offsetWidth / 2);
-    track.style.transform = `translateX(${shift}px)`;
+    const gutter = 64;
+    track.style.transform = `translateX(${gutter - item.offsetLeft}px)`;
     items.forEach((el, i) => el.classList.toggle("is-active", i === index));
   };
 
   const show = (nextIndex) => {
     index = (nextIndex + items.length) % items.length;
     pauseVideos();
-    center();
+    align();
   };
 
   reel.querySelector("[data-prev]")?.addEventListener("click", () => show(index - 1));
@@ -212,6 +213,6 @@ function bindReel(root) {
     });
   });
   Promise.all(wait).then(() => show(0));
-  window.addEventListener("resize", center);
+  window.addEventListener("resize", align);
   show(0);
 }

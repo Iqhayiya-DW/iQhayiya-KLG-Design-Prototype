@@ -1,5 +1,5 @@
 import { mountChrome, cardMarkup } from "./nav.js?v=klg5";
-import { projects } from "./projects.js?v=klg17";
+import { projects } from "./projects.js?v=klg18";
 
 const params = new URLSearchParams(location.search);
 const cat = params.get("cat") || "All";
