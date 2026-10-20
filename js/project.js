@@ -1,5 +1,5 @@
 import { mountChrome, escapeHtml } from "./nav.js?v=klg5";
-import { getProject, getNeighbors } from "./projects.js?v=klg18";
+import { getProject, getNeighbors } from "./projects.js?v=klg19";
 
 mountChrome("work");
 
@@ -114,35 +114,37 @@ function renderProject(project, gallery) {
     .join("");
 
   root.innerHTML = `
-    <section class="project-head">
-      <h1>${escapeHtml(project.title)}</h1>
-      ${kicker ? `<p class="project-kicker">${escapeHtml(kicker)}</p>` : ""}
-      ${facts.length ? `<p class="project-facts">${facts.map(escapeHtml).join("<br>")}</p>` : ""}
-    </section>
+    <article class="project-page">
+      <section class="project-head">
+        <h1>${escapeHtml(project.title)}</h1>
+        ${kicker ? `<p class="project-kicker">${escapeHtml(kicker)}</p>` : ""}
+        ${facts.length ? `<p class="project-facts">${facts.map(escapeHtml).join("<br>")}</p>` : ""}
+      </section>
 
-    <section class="project-reel" data-reel>
-      ${
-        slides.length > 1
-          ? `<button class="reel-arrow reel-arrow--prev" type="button" data-prev aria-label="Previous photo">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.2" d="M15 5L8 12l7 7"/></svg>
-            </button>`
-          : ""
-      }
-      <div class="reel-viewport">
-        <div class="reel-track" data-track>${slidesHtml}</div>
-      </div>
-      ${
-        slides.length > 1
-          ? `<button class="reel-arrow reel-arrow--next" type="button" data-next aria-label="Next photo">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.2" d="M9 5l7 7-7 7"/></svg>
-            </button>`
-          : ""
-      }
-    </section>
+      <section class="project-reel" data-reel>
+        ${
+          slides.length > 1
+            ? `<button class="reel-arrow reel-arrow--prev" type="button" data-prev aria-label="Previous photo">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.2" d="M15 5L8 12l7 7"/></svg>
+              </button>`
+            : ""
+        }
+        <div class="reel-viewport">
+          <div class="reel-track" data-track>${slidesHtml}</div>
+        </div>
+        ${
+          slides.length > 1
+            ? `<button class="reel-arrow reel-arrow--next" type="button" data-next aria-label="Next photo">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.2" d="M9 5l7 7-7 7"/></svg>
+              </button>`
+            : ""
+        }
+      </section>
 
-    <section class="project-intro">
-      <div class="project-story">${storyHtml}</div>
-    </section>
+      <section class="project-intro">
+        <div class="project-story">${storyHtml}</div>
+      </section>
+    </article>
 
     <nav class="project-nextprev" aria-label="Adjacent projects">
       ${neighborLink("prev", prev)}
@@ -169,8 +171,7 @@ function bindReel(root) {
   const align = () => {
     const item = items[index];
     if (!item) return;
-    const gutter = 64;
-    track.style.transform = `translateX(${gutter - item.offsetLeft}px)`;
+    track.style.transform = `translateX(${-item.offsetLeft}px)`;
     items.forEach((el, i) => el.classList.toggle("is-active", i === index));
   };
 
