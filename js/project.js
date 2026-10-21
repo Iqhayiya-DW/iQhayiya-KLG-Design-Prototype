@@ -179,6 +179,24 @@ function bindReel(root) {
     index = (nextIndex + items.length) % items.length;
     pauseVideos();
     align();
+    restartTimer();
+  };
+
+  let timer = null;
+  const stopTimer = () => {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+  };
+  const restartTimer = () => {
+    stopTimer();
+    if (items.length < 2) return;
+    timer = setInterval(() => {
+      const video = items[index]?.querySelector("video");
+      if (video && !video.paused && !video.ended) return;
+      show(index + 1);
+    }, 4000);
   };
 
   reel.querySelector("[data-prev]")?.addEventListener("click", () => show(index - 1));
@@ -192,6 +210,8 @@ function bindReel(root) {
     if (event.key === "ArrowLeft") show(index - 1);
     if (event.key === "ArrowRight") show(index + 1);
   });
+  reel.addEventListener("mouseenter", stopTimer);
+  reel.addEventListener("mouseleave", restartTimer);
 
   let touchX = null;
   viewport.addEventListener("touchstart", (event) => {
@@ -213,7 +233,10 @@ function bindReel(root) {
       media.addEventListener("error", resolve, { once: true });
     });
   });
-  Promise.all(wait).then(() => show(0));
+  Promise.all(wait).then(() => {
+    show(0);
+    restartTimer();
+  });
   window.addEventListener("resize", align);
   show(0);
 }
