@@ -1,5 +1,5 @@
 import { mountChrome, escapeHtml } from "./nav.js?v=klg5";
-import { getProject, getNeighbors } from "./projects.js?v=klg25";
+import { getProject, getNeighbors } from "./projects.js?v=klg26";
 
 mountChrome("work");
 
@@ -26,7 +26,7 @@ async function loadGallery(project) {
   const fallback = (project.gallery || []).filter(Boolean);
   if (!project.gallerySource) return fallback;
   try {
-    const res = await fetch(`${project.gallerySource}?v=klg25`);
+    const res = await fetch(`${project.gallerySource}?v=klg26`);
     if (!res.ok) return fallback;
     const data = await res.json();
     const extra = (data.images || []).filter(Boolean);

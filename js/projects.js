@@ -38,14 +38,14 @@ export const projects = [
     client: "",
     excerpt:
       "A sensitive revitalisation of a rural family settlement in Sipaqeni, Flagstaff, rooted in amaMpondo spatial traditions.",
-    hero: "images/Qwalela Homestead/10.jpg",
+    hero: "images/idw/house-qwalela-site.jpg",
     gallerySource: "images/Qwalela Homestead/gallery.json",
     gallery: [
+      "images/idw/house-qwalela-site.jpg",
       "images/idw/house-qwalela-location-map.jpg",
       "images/idw/house-qwalela-sketch.jpg",
       "images/idw/house-qwalela-drawing.jpg",
       "images/idw/house-qwalela-cabinet.jpg",
-      "images/idw/house-qwalela-site.jpg",
       "images/idw/house-qwalela-fireplace.jpg",
     ],
     related: ["matatiele-social-development", "mbizana"],
