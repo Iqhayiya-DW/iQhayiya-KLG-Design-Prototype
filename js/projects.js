@@ -45,6 +45,7 @@ export const projects = [
       "images/idw/house-qwalela-sketch.jpg",
       "images/idw/house-qwalela-drawing.jpg",
       "images/idw/house-qwalela-cabinet.jpg",
+      "images/idw/house-qwalela-site.jpg",
       "images/idw/house-qwalela-fireplace.jpg",
     ],
     related: ["matatiele-social-development", "mbizana"],

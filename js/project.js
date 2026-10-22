@@ -1,5 +1,5 @@
 import { mountChrome, escapeHtml } from "./nav.js?v=klg5";
-import { getProject, getNeighbors } from "./projects.js?v=klg24";
+import { getProject, getNeighbors } from "./projects.js?v=klg25";
 
 mountChrome("work");
 
@@ -22,34 +22,17 @@ if (!project || !root) {
   loadGallery(project).then((gallery) => renderProject(project, gallery));
 }
 
-const HIDDEN_MEDIA = new Set([
-  "images/idw/house-qwalela-colonnade.jpg",
-  "images/idw/house-qwalela-brick.jpg",
-  "images/idw/house-qwalela-scaffold.jpg",
-  "images/idw/house-qwalela-site.jpg",
-  "images/idw/house-qwalela-courtyard.jpg",
-  "images/idw/house-qwalela-deck.jpg",
-  "images/idw/house-qwalela-chimney.jpg",
-  "images/idw/house-qwalela-wall.jpg",
-  "images/idw/house-qwalela.jpg",
-  "images/idw/house-qwalela.png",
-]);
-
-function allowedSrc(src) {
-  return Boolean(src) && !HIDDEN_MEDIA.has(src);
-}
-
 async function loadGallery(project) {
-  const fallback = (project.gallery || []).filter(allowedSrc);
+  const fallback = (project.gallery || []).filter(Boolean);
   if (!project.gallerySource) return fallback;
   try {
-    const res = await fetch(`${project.gallerySource}?v=klg24`);
+    const res = await fetch(`${project.gallerySource}?v=klg25`);
     if (!res.ok) return fallback;
     const data = await res.json();
     const extra = (data.images || []).filter(Boolean);
     const merged = [...fallback];
     extra.forEach((src) => {
-      if (allowedSrc(src) && !merged.includes(src)) merged.push(src);
+      if (!merged.includes(src)) merged.push(src);
     });
     return merged.length ? merged : fallback;
   } catch {
@@ -61,7 +44,7 @@ function mediaList(project, gallery) {
   const slides = [];
   const seen = new Set();
   const add = (type, src) => {
-    if (!allowedSrc(src) || seen.has(src)) return;
+    if (!src || seen.has(src)) return;
     seen.add(src);
     slides.push({ type, src });
   };
