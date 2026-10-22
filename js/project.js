@@ -26,7 +26,7 @@ async function loadGallery(project) {
   const fallback = (project.gallery || []).filter(Boolean);
   if (!project.gallerySource) return fallback;
   try {
-    const res = await fetch(`${project.gallerySource}?v=klg26`);
+    const res = await fetch(`${project.gallerySource}?v=klg27`);
     if (!res.ok) return fallback;
     const data = await res.json();
     const extra = (data.images || []).filter(Boolean);
