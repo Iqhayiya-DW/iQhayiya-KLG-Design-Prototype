@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page moved — iQhayiya Design Workshop</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/favicon.png?v=idw3" type="image/png" sizes="any">
+  <link rel="stylesheet" href="/css/klg.css?v=klg32">
+  <script>
+    (function () {
+      var path = decodeURIComponent(location.pathname || "").toLowerCase();
+      var dest = "";
+      if (/index\.php/.test(path) && /about/.test(path)) dest = "/about.html";
+      else if (/index\.php/.test(path) && /(contact|practice)/.test(path)) dest = "/practice.html";
+      else if (/index\.php/.test(path) && /(project|portfolio|work|gallery)/.test(path)) dest = "/work.html";
+      else if (/index\.php/.test(path) && /(news|blog|article)/.test(path)) dest = "/news.html";
+      else if (/index\.php/.test(path) && /(join|career|vacanc)/.test(path)) dest = "/join.html";
+      else if (/\/index\.php\/?$/.test(path)) dest = "/";
+      else if (/\/about/.test(path)) dest = "/about.html";
+      if (dest) location.replace(dest);
+    })();
+  </script>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="contact-mast">
+      <h1>This page has moved.</h1>
+      <p class="lede">The old website links no longer apply. Use the pages below.</p>
+    </section>
+    <section class="notes">
+      <article>
+        <p class="eyebrow">Start here</p>
+        <h3><a href="/">Home</a></h3>
+        <p>iQhayiya Design Workshop, Manaba.</p>
+      </article>
+      <article>
+        <p class="eyebrow">Studio</p>
+        <h3><a href="/about.html">About us</a></h3>
+        <p>The practice, directors, and awards.</p>
+      </article>
+      <article>
+        <p class="eyebrow">Work</p>
+        <h3><a href="/work.html">Projects</a></h3>
+        <p>Selected residential and community work.</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
