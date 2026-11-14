@@ -67,7 +67,6 @@ export const projects = [
     related: ["ntabankulu-traffic-department", "idutywa-town-hall"],
     paragraphs: [
       "Campus work for Vhembe TVET College in Limpopo. A long brick screen lifts off the ground along a planted court, with shaded walks, a metal-roof teaching wing and interiors organised around a timber-screened reception.",
-      "The gallery is ordered from Picture 1 through Picture 39 as uploaded.",
     ],
   },
   {
