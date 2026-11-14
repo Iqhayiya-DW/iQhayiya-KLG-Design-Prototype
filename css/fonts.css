@@ -17,7 +17,7 @@
 @font-face {
   font-family: "Outfit";
   font-style: normal;
-  font-weight: 300 600;
+  font-weight: 400;
   font-display: swap;
   src: url("../fonts/outfit-400.woff2") format("woff2");
 }
