@@ -1,5 +1,5 @@
 import { mountChrome } from "./nav.js?v=klg5";
-import { featuredProjects } from "./projects.js?v=klg32";
+import { featuredProjects } from "./projects.js?v=klg33";
 
 mountChrome("home");
 
