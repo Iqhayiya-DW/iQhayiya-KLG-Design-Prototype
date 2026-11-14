@@ -22,10 +22,32 @@ export const projects = [
       "images/idw/umzimkhulu-colour-render.jpg",
       "images/idw/umzimkhulu-hall-works.jpg",
     ],
-    related: ["anglican-union", "matatiele-social-development"],
+    related: ["ntabankulu-traffic-department", "matatiele-social-development"],
     paragraphs: [
       "A civic hall for gathering, ceremony and daily public life in uMzimkhulu. The work is recorded from plan and section through to the street elevation and construction on site.",
       "Completed 17 November 2021.",
+    ],
+  },
+  {
+    id: "ntabankulu-traffic-department",
+    title: "Ntabankulu Traffic Department",
+    category: "Community Infrastructure",
+    year: "2021",
+    completed: "12 December 2021",
+    value: "R11.8 Million",
+    location: "Ntabankulu, Alfred Nzo District, Eastern Cape",
+    client: "Ntabankulu Local Municipality",
+    tags: ["Community Infrastructure"],
+    excerpt:
+      "Design and build of the Ntabankulu Traffic Offices for Ntabankulu Local Municipality, completed 12 December 2021.",
+    hero: "images/Ntabankulu Traffic Department/05.jpg",
+    gallerySource: "images/Ntabankulu Traffic Department/gallery.json",
+    gallery: [],
+    related: ["umzimkhulu-memorial-hall", "mbizana"],
+    paragraphs: [
+      "The Ntabankulu Traffic Department offices were designed and built by iQhayiya Design Workshop under a design-and-build contract for Ntabankulu Local Municipality.",
+      "The building sits in Ntabankulu, in the Alfred Nzo District of the Eastern Cape, as part of the municipality’s civic infrastructure. A round hall, offices and a courtyard garden are grouped under metal roofs, with timber screens, brick and a concrete colonnade around the public rooms.",
+      "Completed 12 December 2021.",
     ],
   },
   {
