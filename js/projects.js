@@ -51,26 +51,6 @@ export const projects = [
     ],
   },
   {
-    id: "vhembe-tvet-college",
-    title: "Vhembe TVET College",
-    category: "Community Infrastructure",
-    year: "",
-    completed: "",
-    location: "Vhembe, Limpopo",
-    client: "Vhembe TVET College",
-    tags: ["Institutional"],
-    excerpt:
-      "Campus buildings for Vhembe TVET College: brick screens, courtyards and teaching rooms around a landscaped walk.",
-    hero: "images/Vhembe TVET College/01.jpg",
-    gallerySource: "images/Vhembe TVET College/gallery.json",
-    gallery: [],
-    related: ["ntabankulu-traffic-department", "idutywa-town-hall"],
-    paragraphs: [
-      "Campus work for Vhembe TVET College in Limpopo. A long brick screen lifts off the ground along a planted court, with shaded walks, a metal-roof teaching wing and interiors organised around a timber-screened reception.",
-      "The gallery records the project from site meeting and construction through to the finished brickwork and a view of the court.",
-    ],
-  },
-  {
     id: "house-qwalela",
     title: "Qwalela Ancestral Homestead",
     category: "Residential",
