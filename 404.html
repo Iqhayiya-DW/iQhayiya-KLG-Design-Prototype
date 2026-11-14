@@ -10,8 +10,12 @@
   <script>
     (function () {
       var path = decodeURIComponent(location.pathname || "").toLowerCase();
+      var q = (location.search || "").toLowerCase();
       var dest = "";
-      if (/index\.php/.test(path) && /about/.test(path)) dest = "/about.html";
+      if (/id=18/.test(q) || /ntabankulu/.test(path)) {
+        dest = "/project.html?id=ntabankulu-traffic-department";
+      } else if (/sppagebuilder/.test(path) || /\/component\//.test(path)) dest = "/work.html";
+      else if (/index\.php/.test(path) && /about/.test(path)) dest = "/about.html";
       else if (/index\.php/.test(path) && /(contact|practice)/.test(path)) dest = "/practice.html";
       else if (/index\.php/.test(path) && /(project|portfolio|work|gallery)/.test(path)) dest = "/work.html";
       else if (/index\.php/.test(path) && /(news|blog|article)/.test(path)) dest = "/news.html";
