@@ -160,27 +160,67 @@ function bindReel(root) {
   const track = root.querySelector("[data-track]");
   const viewport = reel?.querySelector(".reel-viewport");
   if (!reel || !track || !viewport) return;
-  const items = [...track.querySelectorAll(".reel-item")];
-  if (!items.length) return;
-  let index = 0;
+  const originals = [...track.querySelectorAll(".reel-item")];
+  if (!originals.length) return;
 
   const pauseVideos = () => {
     track.querySelectorAll("video").forEach((video) => video.pause());
   };
 
+  const nodes = () => [...track.querySelectorAll(".reel-item")];
+
+  if (originals.length > 1) {
+    const firstClone = originals[0].cloneNode(true);
+    const lastClone = originals[originals.length - 1].cloneNode(true);
+    firstClone.dataset.clone = "first";
+    lastClone.dataset.clone = "last";
+    track.append(firstClone);
+    track.prepend(lastClone);
+  }
+
+  let pos = originals.length > 1 ? 1 : 0;
+  let moving = false;
+
   const align = () => {
-    const item = items[index];
+    const item = nodes()[pos];
     if (!item) return;
     track.style.transform = `translateX(${-item.offsetLeft}px)`;
-    items.forEach((el, i) => el.classList.toggle("is-active", i === index));
+    nodes().forEach((el, i) => el.classList.toggle("is-active", i === pos));
   };
 
-  const show = (nextIndex) => {
-    index = (nextIndex + items.length) % items.length;
+  const jumpTo = (nextPos) => {
+    track.style.transition = "none";
+    pos = nextPos;
+    align();
+    void track.offsetWidth;
+    track.style.transition = "";
+    moving = false;
+  };
+
+  const settle = () => {
+    const item = nodes()[pos];
+    if (item?.dataset.clone === "first") jumpTo(1);
+    else if (item?.dataset.clone === "last") jumpTo(nodes().length - 2);
+    else moving = false;
+  };
+
+  const go = (delta) => {
+    if (originals.length < 2) return;
+    if (moving) return;
+    moving = true;
     pauseVideos();
+    pos += delta;
+    track.style.transition = "";
     align();
     restartTimer();
+    window.setTimeout(settle, 500);
   };
+
+  track.addEventListener("transitionend", (event) => {
+    if (event.target !== track) return;
+    if (event.propertyName && event.propertyName !== "transform") return;
+    settle();
+  });
 
   let timer = null;
   const stopTimer = () => {
@@ -191,24 +231,31 @@ function bindReel(root) {
   };
   const restartTimer = () => {
     stopTimer();
-    if (items.length < 2) return;
+    if (originals.length < 2) return;
     timer = setInterval(() => {
-      const video = items[index]?.querySelector("video");
+      const video = nodes()[pos]?.querySelector("video");
       if (video && !video.paused && !video.ended) return;
-      show(index + 1);
+      go(1);
     }, 4000);
   };
 
-  reel.querySelector("[data-prev]")?.addEventListener("click", () => show(index - 1));
-  reel.querySelector("[data-next]")?.addEventListener("click", () => show(index + 1));
-  items.forEach((item, i) => {
-    item.addEventListener("click", () => {
-      if (i !== index) show(i);
-    });
+  reel.querySelector("[data-prev]")?.addEventListener("click", () => go(-1));
+  reel.querySelector("[data-next]")?.addEventListener("click", () => go(1));
+  track.addEventListener("click", (event) => {
+    const item = event.target.closest(".reel-item");
+    if (!item || item.dataset.clone) return;
+    const nextPos = nodes().indexOf(item);
+    if (nextPos < 0 || nextPos === pos) return;
+    moving = false;
+    pauseVideos();
+    pos = nextPos;
+    track.style.transition = "";
+    align();
+    restartTimer();
   });
   document.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft") show(index - 1);
-    if (event.key === "ArrowRight") show(index + 1);
+    if (event.key === "ArrowLeft") go(-1);
+    if (event.key === "ArrowRight") go(1);
   });
   reel.addEventListener("mouseenter", stopTimer);
   reel.addEventListener("mouseleave", restartTimer);
@@ -220,11 +267,11 @@ function bindReel(root) {
   viewport.addEventListener("touchend", (event) => {
     if (touchX == null) return;
     const dx = (event.changedTouches[0]?.clientX ?? touchX) - touchX;
-    if (Math.abs(dx) > 40) show(index + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
     touchX = null;
   }, { passive: true });
 
-  const wait = items.map((item) => {
+  const wait = originals.map((item) => {
     const media = item.querySelector("img, video");
     if (!media || media.tagName === "VIDEO") return Promise.resolve();
     if (media.complete) return Promise.resolve();
@@ -234,9 +281,14 @@ function bindReel(root) {
     });
   });
   Promise.all(wait).then(() => {
-    show(0);
+    jumpTo(pos);
     restartTimer();
   });
-  window.addEventListener("resize", align);
-  show(0);
+  window.addEventListener("resize", () => {
+    track.style.transition = "none";
+    align();
+    void track.offsetWidth;
+    track.style.transition = "";
+  });
+  jumpTo(pos);
 }
